@@ -1,5 +1,7 @@
-// Envolva todo o código desse arquivo em uma IIFE (incluindo esse comentário).
 
+(function (){
+
+// Envolva todo o código desse arquivo em uma IIFE (incluindo esse comentário).
 /*
 Crie uma variável chamada `once`, que recebe `false` como seu valor.
 Crie um loop que execute enquanto essa variável for verdadeira. Dentro do
@@ -9,12 +11,25 @@ Qual loop você deve usar para que essa mensagem seja mostrada no console?
 */
 // ?
 
+var once = false;
+
+do {
+    console.log("entrou pelo menos uma vez")
+} while(once);
+
 /*
 Crie um objeto chamado `person`, que receba as seguintes propriedades:
 - 'name', 'age', 'weight' e 'birthday'. Preencha com os valores corretos
 para o nome, idade, peso e data de nascimento dessa pessoa.
 */
 // ?
+
+var person = {
+    name: "Eduarda",
+    age: 21,
+    weigth: 1.66,
+    birthday: "23/02/2000"
+}
 
 /*
 Use um loop para percorrer o objeto criado acima, mostrando no console
@@ -26,6 +41,13 @@ Após o loop, mostre a frase:
 'The person has [COUNTER] properties'
 */
 // ?
+var counter = 0;
+for( var dataPerson in person){
+    counter ++;
+    console.log(` The ${dataPerson} of person is value ${person[dataPerson]}`)
+}
+console.log(`The person has ${counter} properties`)
+
 
 /*
 Crie uma função chamada `moreThan`, que vai verificar se a pessoa (objeto
@@ -36,6 +58,12 @@ Após a função, mostrar a mensagem no console:
 */
 // ?
 
+function moreThan(age) {
+    var isOld = person.age > age 
+    console.log(`The person has more than ${age} years old? ${isOld}`)
+}
+
+moreThan(29);
 /*
 Faça um loop de 0 a 20, que adicione cada número como um item de um
 array chamado `numbers`. Se o contador for maior que 10, saia do loop.
@@ -43,6 +71,13 @@ Mostre no console os números no array.
 */
 console.log( 'De 0 a 10:' );
 // ?
+
+var numbers = [];
+
+for(var i = 0; numbers.length <= 10; i++){
+    numbers.push(i);
+    console.log(numbers[i])
+}
 
 /*
 Faça outro loop de 0 a 20, que adicione a um array chamado `numbers` (já
@@ -52,3 +87,13 @@ Mostrar no console os números do array.
 */
 console.log( 'Pares de 0 a 20:' );
 // ?
+numbers = []
+
+for(var i = 0; numbers.length <= 10; i++){
+    if (i % 2 == 0){
+        numbers.push(i);
+    }
+
+    console.log(numbers)
+}
+})()
