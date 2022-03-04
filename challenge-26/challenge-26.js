@@ -20,12 +20,39 @@ Dica: olhe os erros que acontecem no console, e vá resolvendo um a um.
 Só passe para o próximo problema quando tiver resolvido o anterior :)
 */
 // ?
+let buttonClear = document.querySelector('[data-js="clear"]');
+let addClick = true;
+function DOM(elementOfHTML) {
+  this.element = Array.from(document.querySelectorAll(elementOfHTML));
+  this.on = function on(typeOfEvent, callback) {
+    this.element.forEach((elementHTML) => {
+      elementHTML.addEventListener(typeOfEvent, callback)
+    })
+  };
+  this.off = function off(typeOfEvent) {
+    this.element.forEach((elementHTML) => {
+      console.log("exclui")
+      elementHTML.removeEventListener(typeOfEvent, null)
+    })
+  }
+  this.get = function get() {
+    return this.element;
+  }
+}
 
-var $a = new DOM('[data-js="link"]');
-$a.on('click', function(e) {
+let $a = new DOM('[data-js="link"]');
+if(addClick){
+$a.on('click', function (e) {
   e.preventDefault();
-  console.log('clicou');
 });
+}
+
+buttonClear.addEventListener("click", function(){
+  addClick = false;
+  $a.off("click")
+})
+
+
 
 console.log('Elementos selecionados:', $a.get());
 console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
