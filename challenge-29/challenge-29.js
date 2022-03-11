@@ -1,4 +1,4 @@
-(function() {
+(function ($, document) {
   'use strict';
 
   /*
@@ -35,5 +35,71 @@
   E aqui nesse arquivo, faça a lógica para cadastrar os carros, em um módulo
   que será nomeado de "app".
   */
+  function APP() {
+    return {
+      init: function () {
+        console.log('retorno m')
+        this.getDataCompany();
+        this.initEvents();
+      },
+      initEvents: function initEvents() {
+        let $form = $("[data-js='form']");
+        $form.on("submit", this.addRegister);
+      },
+      addRegister: function (event) {
+        event.preventDefault();
+        const tableCars = $("[data-js='dataCarro']").get()
+        tableCars.appendChild(APP().fragment())
 
-})();
+      },
+      fragment: function fragment() {
+        let $fragment = document.createDocumentFragment();
+        let $tr = document.createElement("tr");
+        let $tdImage = document.createElement("td");
+        let $tdMarca = document.createElement("td");
+        let $tdAno = document.createElement("td");
+        let $tdPlaca = document.createElement("td");
+        let $tdCor = document.createElement("td");
+        let $image = document.createElement("img");
+
+        $image.setAttribute("src", $("[data-js='image']").get().value )
+        $tdImage.appendChild($image)
+        $tdMarca.textContent = $("[data-js='marca']").get().value
+        $tdAno.textContent = $("[data-js='anos']").get().value
+        $tdPlaca.textContent = $("[data-js='placa']").get().value
+        $tdCor.textContent = $("[data-js='cor']").get().value
+
+        $tr.appendChild($tdImage)
+        $tr.appendChild($tdMarca)
+        $tr.appendChild($tdAno)
+        $tr.appendChild($tdPlaca)
+        $tr.appendChild($tdCor)
+        return $fragment.appendChild($tr)
+
+      },
+      getDataCompany: function () {
+        const ajax = new XMLHttpRequest();
+        ajax.open("GET", "company.json")
+        ajax.send();
+        ajax.addEventListener("readystatechange", this.makeData, false)
+      },
+      makeData: function () {
+        if (this.readyState === 4) {
+          try {
+            let dados = JSON.parse(this.responseText)
+            console.log(dados)
+            const $nomeEmpresa = $("[data-js='nomeEmpresa']");
+            const $telefoneEmpresa = $("[data-js='telefoneEmpresa']");
+            $nomeEmpresa.get().textContent = dados.name;
+            $telefoneEmpresa.get().textContent = dados.phone;
+
+          } catch (erro) {
+            console.log("DADOS", erro)
+          }
+        }
+      },
+    }
+  }
+
+  APP().init()
+})(window.DOM, document);
