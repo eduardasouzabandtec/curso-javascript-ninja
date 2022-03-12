@@ -61,6 +61,7 @@
         let $tdPlaca = document.createElement("td");
         let $tdCor = document.createElement("td");
         let $image = document.createElement("img");
+        let $button = document.createElement("button")
 
         $image.setAttribute("src", $("[data-js='image']").get().value )
         $tdImage.appendChild($image)
@@ -68,12 +69,17 @@
         $tdAno.textContent = $("[data-js='anos']").get().value
         $tdPlaca.textContent = $("[data-js='placa']").get().value
         $tdCor.textContent = $("[data-js='cor']").get().value
+        $button.textContent = "Remover"
 
         $tr.appendChild($tdImage)
         $tr.appendChild($tdMarca)
         $tr.appendChild($tdAno)
         $tr.appendChild($tdPlaca)
         $tr.appendChild($tdCor)
+        $tr.appendChild($button)
+        $button.addEventListener("click", function(){
+         this.parentNode.remove()
+        })
         return $fragment.appendChild($tr)
 
       },
